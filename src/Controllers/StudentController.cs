@@ -86,13 +86,15 @@ namespace Workforce.Controllers {
             }
         }
 
-        private async Task<SelectList> CohortList (int? selected) {
-            using (IDbConnection conn = Connection) {
+        private async Task<SelectList> CohortList(int? selected)
+        {
+            using (IDbConnection conn = Connection)
+            {
                 // Get all cohort data
-                List<Cohort> cohorts = (await conn.QueryAsync<Cohort> ("SELECT Id, Name FROM Cohort")).ToList();
+                List<Cohort> cohorts = (await conn.QueryAsync<Cohort>("SELECT Id, Name FROM Cohort")).ToList();
 
                 // Add a prompting cohort for dropdown
-                cohorts.Insert(0, new Cohort() { Id=0, Name="Select cohort..."});
+                cohorts.Insert(0, new Cohort() { Id = 0, Name = "Select cohort..." });
 
                 // Generate SelectList from cohorts
                 var selectList = new SelectList(cohorts, "Id", "Name", selected);
